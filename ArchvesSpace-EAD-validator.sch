@@ -67,8 +67,7 @@
             <assert
                 test="boolean(ead:did/ead:unittitle/text()[normalize-space()][1])  or boolean(ead:did/ead:unitdate/text()[normalize-space()][1]) or ead:did/ead:unitdate[@normal]"
                 > You must specify either a title or a date when describing archival components
-                (this is a requirement enforced by the AchivesSpace data model, not by EAD or
-                DACS)</assert>
+                (this is a requirement enforced by the AchivesSpace data model, not by EAD)</assert>
         </rule>
     </pattern>
 
