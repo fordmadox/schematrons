@@ -6,7 +6,7 @@
         (still need to figure what all of those are, including all undocumented data model constraints, etc.)
         
         still to add:
-           something about length of fields (also need to test for length of title / unit ids, etc.)... if something is too long for the database, etc., like the 65k character limit :(
+           something about field lengths (also need to test for length of title / unit ids, etc.)... if something is too long for the database, etc., like the 65k character limit :(
            what else???
         
         still to do:
@@ -47,7 +47,7 @@
             <let name="end_date" value="substring-after(@normal, '/')"/>
             <assert test="replace($end_date, '-', '') gt replace($begin_date, '-', '')">The date
                 normalization value for this field needs to be updated. The first date, <value-of
-                    select="$begin_date"/>, is encoded as occuring <span class="italic"
+                    select="$begin_date"/>, is encoded as occurring <span class="italic"
                     >before</span> the end date, <value-of select="$end_date"/>
             </assert>
         </rule>
