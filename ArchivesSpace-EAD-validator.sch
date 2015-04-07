@@ -26,9 +26,15 @@
 <!--            <assert test="boolean(ead:unittitle//text()[normalize-space()][1])">You must supply a
                 title at the resource level</assert>
 -->
-            <assert
-                test="boolean(ead:unitdate//text()[normalize-space()][1]) or ead:unitdate/@normal"
+          <assert
+               test="descendant::ead:unitdate[normalize-space()] or descendant::ead:unitdate[@normal]"
+                >You must supply a date at the resource level (including as child of unittitle)</assert>
+          
+ <!--           <assert
+                test="boolean(descendant::ead:unitdate//text()[normalize-space()][1]) or descendant::ead:unitdate/@normal"
                 >You must supply a date at the resource level</assert>
+  -->        
+          
             <assert test="boolean(ead:unitid//text()[normalize-space()][1])">You must supply an
                 identifier at the resource level</assert>
             <assert test="boolean(ead:physdesc/ead:extent//text()[normalize-space()][1])">You must
