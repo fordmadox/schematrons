@@ -15,27 +15,36 @@
            pray that i can use xpath 2.0, as i've done here
            group and arrange this file like a semi-decent schematron file should actually be structured (and learn how to do that!)
     -->
-
+    
     <pattern>
         <rule context="ead:archdesc">
             <assert test="@level">You must supply a level attribute at the resource level</assert>
         </rule>
         <rule context="ead:archdesc/ead:did">
-            <assert test="boolean(ead:unittitle//text()[normalize-space()][1])">You must supply a
+            <assert test="ead:unittitle[normalize-space()]">You must supply a
+                title at the resource level</assert>               
+            <!--            <assert test="boolean(ead:unittitle//text()[normalize-space()][1])">You must supply a
                 title at the resource level</assert>
+-->
             <assert
-                test="boolean(ead:unitdate//text()[normalize-space()][1]) or ead:unitdate/@normal"
+                test="descendant::ead:unitdate[normalize-space()] or descendant::ead:unitdate[@normal]"
+                >You must supply a date at the resource level (including as child of unittitle)</assert>
+            
+            <!--           <assert
+                test="boolean(descendant::ead:unitdate//text()[normalize-space()][1]) or descendant::ead:unitdate/@normal"
                 >You must supply a date at the resource level</assert>
-            <assert test="boolean(ead:unitid//text()[normalize-space()][1])">You must supply an
+  -->        
+            
+            <assert test="ead:unitid[normalize-space()][1]">You must supply an
                 identifier at the resource level</assert>
-            <assert test="boolean(ead:physdesc/ead:extent//text()[normalize-space()][1])">You must
+            <assert test="ead:physdesc/ead:extent[normalize-space()][1]">You must
                 supply an extent statement at the resource level. This should be formatted with an
                 extent number and an extent type, like so: "3.25 cubic meters"</assert>
             <!-- is ASpace (like the AT) fine with this value just being in physdesc?  if so, then update this check.  or, make ASpace more strict, so that folks can still 
             import generic physdesc notes at the resource level.-->
         </rule>
     </pattern>
-
+    
     <pattern>
         <rule context="ead:unitdate[contains(@normal, '/')]">
             <!-- this will work for most cases, but it's not going to catch if someone inputs a date like 2010-02-30...
@@ -45,32 +54,32 @@
             -->
             <let name="begin_date" value="substring-before(@normal, '/')"/>
             <let name="end_date" value="substring-after(@normal, '/')"/>
-            <assert test="replace($end_date, '-', '') gt replace($begin_date, '-', '')">The date
+            <assert test="replace($end_date, '-', '') >= replace($begin_date, '-', '')">The date
                 normalization value for this field needs to be updated. The first date, <value-of
                     select="$begin_date"/>, is encoded as occurring <span class="italic"
-                    >before</span> the end date, <value-of select="$end_date"/>
+                        >before</span> the end date, <value-of select="$end_date"/>
             </assert>
         </rule>
     </pattern>
-
+    
     <pattern>
         <rule context="*[@level ='otherlevel']">
             <assert test="@otherlevel">If the value of a level attribute is "otherlevel', then you
                 must specify the value of the otherlevel attribute</assert>
         </rule>
     </pattern>
-
+    
     <pattern>
         <rule context="ead:c | ead:*[matches(local-name(), '^c0|^c1')]">
             <assert test="@level">You must specify a level attribute at every level of
                 description</assert>
             <assert
-                test="boolean(ead:did/ead:unittitle//text()[normalize-space()][1])  or boolean(ead:did/ead:unitdate//text()[normalize-space()][1]) or ead:did/ead:unitdate[@normal]"
+                test="ead:did/ead:unittitle[normalize-space()]  or descendant::ead:unitdate[normalize-space()] or descendant::ead:unitdate[@normal]"
                 > You must specify either a title or a date when describing archival components
                 (this is a requirement enforced by the AchivesSpace data model, not by EAD)</assert>
         </rule>
     </pattern>
-
+    
     <!-- rather than include this rule, we shoud only use the container/@id values during import if there is more than 1 @id per archival component
     <pattern>
         <rule context="ead:container[not(@parent)]">
