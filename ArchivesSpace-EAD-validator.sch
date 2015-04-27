@@ -23,35 +23,9 @@
         <rule context="ead:archdesc/ead:did">
             <assert test="ead:unittitle[normalize-space()]">You must supply a
                 title at the resource level</assert>               
-<<<<<<< HEAD
-            <!--            <assert test="boolean(ead:unittitle//text()[normalize-space()][1])">You must supply a
-                title at the resource level</assert>
--->
-            <assert
-                test="descendant::ead:unitdate[normalize-space()] or descendant::ead:unitdate[@normal]"
+            <assert test="descendant::ead:unitdate[normalize-space()] or descendant::ead:unitdate[@normal]"
                 >You must supply a date at the resource level (including as child of unittitle)</assert>
-            
-            <!--           <assert
-                test="boolean(descendant::ead:unitdate//text()[normalize-space()][1]) or descendant::ead:unitdate/@normal"
-                >You must supply a date at the resource level</assert>
-  -->        
-            
             <assert test="ead:unitid[normalize-space()][1]">You must supply an
-=======
-<!--            <assert test="boolean(ead:unittitle//text()[normalize-space()][1])">You must supply a
-                title at the resource level</assert>
--->
-          <assert
-               test="descendant::ead:unitdate[normalize-space()] or descendant::ead:unitdate[@normal]"
-                >You must supply a date at the resource level (including as child of unittitle)</assert>
-          
- <!--           <assert
-                test="boolean(descendant::ead:unitdate//text()[normalize-space()][1]) or descendant::ead:unitdate/@normal"
-                >You must supply a date at the resource level</assert>
-  -->        
-          
-            <assert test="boolean(ead:unitid//text()[normalize-space()][1])">You must supply an
->>>>>>> d1a3c04c8ca45986975d8fb8aeeb22a69930dbfe
                 identifier at the resource level</assert>
             <assert test="ead:physdesc/ead:extent[normalize-space()][1]">You must
                 supply an extent statement at the resource level. This should be formatted with an
