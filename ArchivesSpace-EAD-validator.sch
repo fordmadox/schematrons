@@ -73,6 +73,19 @@ for the time being, i removed namespace checks so that the same rules will work 
         </rule>
     </pattern>
     
+    <pattern>
+        <rule context="text()">
+            <!-- need to get a list of invalid characters.
+                also need to rewrite the message once the list is filled out-->
+            <report test="matches(., '’')">
+                Smart quote detected. These characters need to be replaced before importing your files
+                into ArchivesSpace.
+            </report>
+        </rule>
+    </pattern>
+    
+
+    
     <!-- rather than include this rule, we shoud only use the container/@id values during import if there is more than 1 @id per archival component
     <pattern>
         <rule context="*:container[not(@parent)]">
