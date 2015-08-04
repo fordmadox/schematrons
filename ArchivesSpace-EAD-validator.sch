@@ -77,7 +77,7 @@ for the time being, i removed namespace checks so that the same rules will work 
         <rule context="text()">
             <!-- need to get a list of invalid characters.
                 also need to rewrite the message once the list is filled out-->
-            <report test="matches(., '’')">
+            <report test="matches(., '’|“|”')">
                 Smart quote detected. These characters need to be replaced before importing your files
                 into ArchivesSpace.
             </report>
