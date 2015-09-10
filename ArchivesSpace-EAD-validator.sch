@@ -8,6 +8,7 @@
 for the time being, i removed namespace checks so that the same rules will work for DTD and/or schema-associated files.
         
         still to add:
+            dao stuff (must have title and href attributes?)
            something about field lengths (also need to test for length of title / unit ids, etc.)... if something is too long for the database, etc., like the 65k character limit :(
            what else???
         
@@ -95,21 +96,21 @@ for the time being, i removed namespace checks so that the same rules will work 
         </rule>
     </pattern>
 
-    
+    <!-- doesn't seem to be needed in the newest version
     <pattern>
         <rule context="text()">
-            <!-- need to get a list of invalid characters.
-                also need to rewrite the message once the list is filled out-->
             <report test="matches(., '’|“|”')">
                 Smart quote detected. These characters need to be replaced before importing your files
                 into ArchivesSpace.
             </report>
         </rule>
     </pattern>
+    -->
+    <!-- need to get a list of invalid characters, if any still cause the importer problems.-->
     
 
     
-    <!-- rather than include this rule, we shoud only use the container/@id values during import if there is more than 1 @id per archival component-->
+    <!-- rather than include this rule, the EAD importer shoud only use the container/@id values during import if there is more than 1 @id per archival component-->
     <pattern>
         <rule context="*:container[not(@parent)]">
             <assert test="@id">In order to ensure that your container elements import properly, you should assign id attributes for each container grouping per archival component</assert>
