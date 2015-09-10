@@ -84,8 +84,8 @@ for the time being, i removed namespace checks so that the same rules will work 
     </pattern>
     
     <pattern>
-        <rule context="*:c | *[matches(local-name(), '^c0|^c1')]">
-            <assert test="*:did[*:physdesc/*:extent]/*:physdesc/*:extent[1][matches(normalize-space(.), '\D')]">
+        <rule context="*:c/*:did/*:physdesc/*:extent[1] | *[matches(local-name(), '^c0|^c1')]/*:did/*:physdesc/*:extent[1]">
+            <assert test="matches(normalize-space(.), '\D')">
                 The extent statement should contain more than just an extent number since ArchivesSpace will not import
                 any extent attribute values. If you're making use of the 
                 @unit attribute, you would probably be safe in copying that value to the end of the extent's 
