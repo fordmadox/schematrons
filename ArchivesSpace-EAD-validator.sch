@@ -63,11 +63,11 @@ for the time being, i removed namespace checks so that the same rules will work 
     </pattern>
     
     <pattern>
-        <rule context="*:c | *[matches(local-name(), '^c0|^c1')]">
-            <assert test="@level">You must specify a level attribute at every level of
+        <rule context="*:c/*:did | *[matches(local-name(), '^c0|^c1')]/*:did">
+            <assert test="parent::*/@level">You must specify a level attribute at every level of
                 description</assert>
             <assert
-                test="*:did/*:unittitle[normalize-space()]  or descendant::*:unitdate[normalize-space()] or descendant::*:unitdate[@normal]"
+                test="*:unittitle[normalize-space()]  or descendant::*:unitdate[normalize-space()] or descendant::*:unitdate[@normal]"
                 > You must specify either a title or a date when describing archival components
                 (this is a requirement enforced by the AchivesSpace data model, not by EAD)</assert>
         </rule>
@@ -86,11 +86,11 @@ for the time being, i removed namespace checks so that the same rules will work 
     
 
     
-    <!-- rather than include this rule, we shoud only use the container/@id values during import if there is more than 1 @id per archival component
+    <!-- rather than include this rule, we shoud only use the container/@id values during import if there is more than 1 @id per archival component-->
     <pattern>
         <rule context="*:container[not(@parent)]">
             <assert test="@id ">In order to ensure that your container elements import properly, you should assign id attributes for each container grouping per archival component</assert>
         </rule>
     </pattern>
-    -->
+    
 </schema>
