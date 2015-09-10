@@ -35,6 +35,16 @@ for the time being, i removed namespace checks so that the same rules will work 
                 extent number and an extent type, like so: "3.25 cubic meters"</assert>
             <!-- is ASpace (like the AT) fine with this value just being in physdesc?  if so, then update this check.  or, make ASpace more strict, so that folks can still 
             import generic physdesc notes at the resource level.-->
+            <assert test="*:physdesc/*:extent[1][matches(normalize-space(.), '\D')]">
+                The extent statement must contain more than just an extent number. If you're making use of the 
+                @unit attribute, you would probably be safe in copying that value to the end of the extent's 
+                text node (e.g. @unit="Linear Feet", 5...  could be changed to
+                @unit="Linear Feet", 5 Linear Feet)
+            </assert>
+            <assert test="*:physdesc/*:extent[1][matches(normalize-space(.), '\s')][matches(normalize-space(.), '^\d')]">
+                The extent statement must start with a number and it must also have at least one space present.
+                (e.g. "5 Linear Feet" is a valid value, but "5items" is not).
+            </assert>
         </rule>
     </pattern>
     
@@ -74,6 +84,19 @@ for the time being, i removed namespace checks so that the same rules will work 
     </pattern>
     
     <pattern>
+        <rule context="*:c | *[matches(local-name(), '^c0|^c1')]">
+            <assert test="*:did/*:physdesc/*:extent[1][matches(normalize-space(.), '\D')]">
+                The extent statement should contain more than just an extent number since ArchivesSpace will not import
+                any extent attribute values. If you're making use of the 
+                @unit attribute, you would probably be safe in copying that value to the end of the extent's 
+                text node (e.g. @unit="Linear Feet", 5...  could be changed to
+                @unit="Linear Feet", 5 Linear Feet)
+            </assert>  
+        </rule>
+    </pattern>
+
+    
+    <pattern>
         <rule context="text()">
             <!-- need to get a list of invalid characters.
                 also need to rewrite the message once the list is filled out-->
@@ -89,7 +112,7 @@ for the time being, i removed namespace checks so that the same rules will work 
     <!-- rather than include this rule, we shoud only use the container/@id values during import if there is more than 1 @id per archival component-->
     <pattern>
         <rule context="*:container[not(@parent)]">
-            <assert test="@id ">In order to ensure that your container elements import properly, you should assign id attributes for each container grouping per archival component</assert>
+            <assert test="@id">In order to ensure that your container elements import properly, you should assign id attributes for each container grouping per archival component</assert>
         </rule>
     </pattern>
     
