@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://purl.oclc.org/dsdl/schematron" queryBinding="xslt2">
+<schema xmlns="http://purl.oclc.org/dsdl/schematron" 
+    xmlns:sqf="http://www.schematron-quickfix.com/validator/process"
+    queryBinding="xslt2">
     <ns uri="http://www.w3.org/1999/xlink" prefix="xlink"/>
     <ns uri="urn:isbn:1-931666-22-9" prefix="ead"/>
     <!-- eventually, this file should test for all of the ASpace "EAD" requirements prior to import  
@@ -94,6 +96,26 @@ for the time being, i removed namespace checks so that the same rules will work 
                 @unit="Linear Feet", 5 Linear Feet)
             </assert>  
         </rule>
+    </pattern>
+    
+    <pattern>
+        <rule context="*:archdesc//*:c | *:archdesc//*[matches(local-name(), '^c0|c1' )]">
+            <report test="*:note">The ArchivesSpace EAD importer will silently drop note elements. Please convert these to "odd" elements.</report>
+            <!--
+                figure out how to do the replacements directly in oXygen.
+                something like:
+                sqf:fix="replaceNote"
+            <sqf:fix id="replaceNote">
+                <sqf:description>
+                    <sqf:title>Change the note element to an odd element</sqf:title>
+                </sqf:description>
+                <sqf:replace match="*:note" node-type="element" target="ead:odd" select=".">
+<sqf:keep/>                    
+                </sqf:replace>
+            </sqf:fix>
+            -->
+        </rule>    
+
     </pattern>
 
     <!-- doesn't seem to be needed in the newest version
