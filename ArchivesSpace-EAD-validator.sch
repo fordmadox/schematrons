@@ -151,6 +151,4 @@ for the time being, i removed namespace checks so that the same rules will work 
         </rule>
     </pattern>
     
-    normalize-space()]
-    
 </schema>
