@@ -138,5 +138,19 @@ for the time being, i removed namespace checks so that the same rules will work 
             <assert test="@id">In order to ensure that your container elements import properly, you should assign id attributes for each container grouping per archival component</assert>
         </rule>
     </pattern>
+    <pattern>
+        <rule context="*:container">
+            <assert test="@type">A container type value ("Box", "Folder", etc.) is required for a container element to be imported.</assert>
+        </rule>
+    </pattern>
+    
+    <!-- what other elements need to be matched here, since ASpace doesn't ignore empty elements? -->
+    <pattern>
+        <rule context="*:unitdate">
+            <assert test="normalize-space() or @normal">The ArchivesSpace importer won't skip over empty elements, so if you use this value, you must provide a date (either as text or an attribute value)</assert>
+        </rule>
+    </pattern>
+    
+    normalize-space()]
     
 </schema>
