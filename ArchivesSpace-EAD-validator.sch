@@ -150,5 +150,5 @@ for the time being, i removed namespace checks so that the same rules will work 
             <assert test="normalize-space() or @normal">The ArchivesSpace importer won't skip over empty elements, so if you use this value, you must provide a date (either as text or an attribute value)</assert>
         </rule>
     </pattern>
-    
+
 </schema>
