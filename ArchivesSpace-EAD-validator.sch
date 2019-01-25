@@ -31,7 +31,7 @@ for the time being, i removed namespace checks so that the same rules will work 
                 title at the resource level</assert>               
             <assert test="descendant::*:unitdate[normalize-space()] or descendant::*:unitdate[@normal]"
                 >You must supply a date at the resource level (including as child of unittitle)</assert>
-            <assert test="*:unitid[normalize-space()][1]">You must supply an
+            <assert test="*:unitid[normalize-space()][not(@audience='internal')][1]">You must supply an
                 identifier at the resource level</assert>
             <assert test="*:physdesc/*:extent[normalize-space()][1]">You must
                 supply an extent statement at the resource level. This should be formatted with an
@@ -48,6 +48,13 @@ for the time being, i removed namespace checks so that the same rules will work 
                 The extent statement must start with a number and it must also have at least one space present.
                 (e.g. "5 Linear Feet" is a valid value, but "5items" is not).
             </assert>
+        </rule>
+    </pattern>
+    
+    <pattern>
+        <rule context="*:unitid">
+            <assert test="not(@audience='internal')">ArchivesSpace has no concept of an unpublished identifier, yet this component has an internal-only identifier.  Please verify that the input file is correct.</assert>
+            <assert test="not(contains(@type, 'Database::'))">Woah. Looks like an internal-only AT or Aeon database ID is going to be imported as a published component unique identifier. Those should be removed.</assert>
         </rule>
     </pattern>
     
